@@ -49,6 +49,19 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  textArea: {
+    marginTop: 20,
+    width: '100%',
+    height: 150,
+    padding: 12,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#ff4b5c',
+    backgroundColor: '#fff0f1',
+    fontSize: 16,
+    color: '#333',
+    textAlignVertical: 'top',
+  },
 });
 
 export default styles;

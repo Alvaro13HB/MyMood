@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { ComponentHeader } from '../../components';
 import styles from './style';
-import { useNavigation } from '@react-navigation/native';
 
-export function Login() {
-    const navigation = useNavigation();
+export function Login({navigation}: any) {
     const [storedUser, setStoredUser] = useState<{ email: string; password: string } | null>(null);
     const [email, setEmail] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(true);
@@ -54,44 +53,47 @@ export function Login() {
     const isSignup = !isLoginScreen;
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>{isSignup ? 'Criar Conta' : 'Entrar'}</Text>
+        <View style={{flex: 1}}>
+            <ComponentHeader />
+            <View style={styles.container}>
+                <Text style={styles.title}>{isSignup ? 'Criar Conta' : 'Entrar'}</Text>
 
-            <TextInput
-                style={[styles.input, !isValidEmail && styles.invalid]}
-                placeholder="Email"
-                value={email}
-                onChangeText={(text) => validateEmail(text)}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                placeholderTextColor="#aaa"
-            />
+                <TextInput
+                    style={[styles.input, !isValidEmail && styles.invalid]}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={(text) => validateEmail(text)}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    placeholderTextColor="#aaa"
+                />
 
-            <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
-                placeholderTextColor="#aaa"
-            />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Senha"
+                    value={password}
+                    onChangeText={setPassword}
+                    secureTextEntry
+                    placeholderTextColor="#aaa"
+                />
 
-            <TouchableOpacity
-                style={styles.button}
-                onPress={isSignup ? handleSignUp : handleLogin}
-            >
-                <Text style={styles.buttonText}>
-                    {isSignup ? 'Cadastrar' : 'Entrar'}
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={isSignup ? handleSignUp : handleLogin}
+                >
+                    <Text style={styles.buttonText}>
+                        {isSignup ? 'Cadastrar' : 'Entrar'}
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsLoginScreen(!isLoginScreen)}>
+                <Text style={styles.switchText}>
+                    {isSignup
+                    ? 'Já tem uma conta? Faça login'
+                    : 'Não tem conta? Cadastre-se'}
                 </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity activeOpacity={1} onPress={() => setIsLoginScreen(!isLoginScreen)}>
-            <Text style={styles.switchText}>
-                {isSignup
-                ? 'Já tem uma conta? Faça login'
-                : 'Não tem conta? Cadastre-se'}
-            </Text>
-            </TouchableOpacity>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

@@ -1,12 +1,10 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Text, TextInput, View } from 'react-native';
 import styles from './style';
 import { FontAwesome5 } from '@expo/vector-icons'; 
 
-export function Result({ route }) {
-  const value = route.params;
-  const navigation = useNavigation();
+export function Result({ route, navigation }: any) {
+  const {value} = route.params
 
   function Message({ value }: { value: number }) {
     let icon = '';
@@ -32,6 +30,12 @@ export function Result({ route }) {
         <FontAwesome5 name={icon} size={40} color="#ff4b5c" style={{ marginBottom: 16 }} />
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.message}>{message}</Text>
+        <TextInput
+          style={styles.textArea}
+          placeholder='Por que você está se sentindo assim?'
+          multiline={true}
+          textAlignVertical='top'
+        />
       </View>
     );
   }
@@ -39,9 +43,6 @@ export function Result({ route }) {
   return (
     <View style={styles.container}>
       {value !== null && <Message value={value} />}
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MoodSelection')}>
-        <Text style={styles.buttonText}>Voltar</Text>
-      </TouchableOpacity>
     </View>
   );
 }
